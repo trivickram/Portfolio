@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: UnifrakturMaguntia
+- Font Author: Copyright (c) 2010 j. 'mach' wust (j.mach.wust@gmail.com) with Reserved Font Name UnifrakturMaguntia. Copyright (c) 2009 Peter Wiegel (wiegel@peter-wiegel.de). This Font Software is licensed under the SIL Open Font License, Version 1.1.
+- Font Source: https://fonts.gstatic.com/s/unifrakturmaguntia/v20/WWXPlieVYwiGNomYU-ciRLRvEmK7oaVun2xNNgNa1A.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
