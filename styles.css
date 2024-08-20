@@ -169,7 +169,7 @@ section {
 .btn-box .btn::before {
     content: '';
     position: absolute;
-    top: 0 left: 0;
+    top: 0 left 0;
     width: 0;
     height: 100%;
     background: white;
@@ -208,12 +208,12 @@ section {
 .home-sci a::before {
     content: '';
     position: absolute;
-    top: 0 left: 0;
+    top: 0 left 0;
     width: 0;
     height: 100%;
     background: white;
     z-index: -1;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .home-sci a:hover::before {
@@ -248,8 +248,8 @@ span {
 }
 
 .about-content h3 {
-    font-size: 2.6rem;
-    color: #00ff0f;
+    font-size: 2rem;
+    color: #1dbf3d;
 }
 
 .about-content p {
@@ -411,7 +411,7 @@ span {
 
 .skills-content .progress .bar {
     height: 2.5rem;
-    border-radius: .6rem;
+    border-radius: 0.8rem;
     border: .2rem solid var(--main-color);
     padding: .5rem;
     margin: 1rem 0;
@@ -437,7 +437,7 @@ span {
 }
 
 .skills-column:nth-child(2) .skills-content .progress:nth-child(1) .bar span {
-    width: 70%;
+    width: 60%;
 }
 
 .skills-column:nth-child(2) .skills-content .progress:nth-child(2) .bar span {
