@@ -51,7 +51,9 @@ body {
     color: var(--text-color);
     font-weight: 600;
 }
-
+#hi-text{
+    color: rgb(200, 45, 205);
+}
 .navbar {
     position: relative;
 }
@@ -118,6 +120,8 @@ section {
     background-position: -33rem 0;
     animation: homeBgText 6s linear infinite;
     animation-delay: 2s;
+    font-family:'Courier New', Courier, monospace,Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
 }
 
 .home-content .text-animate h3 ::before {
@@ -131,12 +135,14 @@ section {
     z-index: -1;
     animation: homeCursorText 6s linear infinite;
     animation-delay: 2s;
+
 }
 
 
 .home-content p {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     margin: 2rem 0 4rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .btn-box {
@@ -145,6 +151,7 @@ section {
     justify-content: space-between;
     width: 34.5rem;
     height: 5rem;
+    
 }
 
 .btn-box .btn {
@@ -164,6 +171,7 @@ section {
     z-index: 1;
     overflow: hidden;
     transition: .5s;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .btn-box .btn::before {
@@ -174,7 +182,7 @@ section {
     height: 100%;
     background: white;
     z-index: -1;
-    transition: .5s;
+    transition: .2s;
 }
 
 .btn-box .btn:hover::before {
@@ -213,7 +221,7 @@ section {
     height: 100%;
     background: white;
     z-index: -1;
-    transition: 0.5s;
+    transition: 0.2s;
 }
 
 .home-sci a:hover::before {
