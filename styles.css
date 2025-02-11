@@ -425,6 +425,34 @@ section {
     height: 5rem;
     
 }
+@keyframes fadeSlideIn {
+  0% {
+      opacity: 0;
+      transform: translateX(-500px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.intro-text {
+  opacity: 0;
+  animation: fadeSlideIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-gradient-text {
+  background: linear-gradient(90deg, #a855f7, #06b6d4, #9333ea, #22d3ee);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 5s infinite linear;
+}
 
 .btn-box .btn {
     position: relative;
@@ -483,6 +511,7 @@ section {
     border: none;
     outline: none;
     padding: 12px 18px;
+    margin-right: 10px;
   }
   .button::before,
   .button::after {
@@ -809,7 +838,7 @@ span {
 
 .about-content h3 {
     font-size: 2rem;
-    color: #1dbf3d;
+    color: yellow;
 }
 
 .about-content p {
