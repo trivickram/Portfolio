@@ -55,7 +55,7 @@
 
         <div>
          
-<button type="button" class="button">
+<button type="button" class="button" onclick="scrollToAbout()">
   <span class="fold"></span>
 
   <div class="points_wrapper">
@@ -88,7 +88,7 @@
       <a href="#about" class="btn">About me</a></span
   >
 </button>
-<button type="button" class="button">
+<button type="button" id="contact-button" class="button" onclick="scrollToContact()">
   <span class="fold"></span>
 
   <div class="points_wrapper">
@@ -364,6 +364,15 @@
         console.error('Typed.js library not loaded');
       }
     </script>
+    </script>
+    <script>
+       function scrollToContact() {
+        document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+    }
+    function scrollToAbout() {
+        document.getElementById("about").scrollIntoView({ behavior: "smooth" });
+    }
+
     </script>
     <script src="script.js"></script>
   </body>

@@ -49,7 +49,9 @@ form.addEventListener('submit', (event) => {
         message
     };
 
-    
+    function scrollToContact() {
+        document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+    }
     
     
     // Use CORS middleware

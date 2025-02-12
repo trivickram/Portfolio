@@ -469,6 +469,7 @@ section {
     letter-spacing: .1rem;
     color: var(--bg-color);
     z-index: 1;
+
     overflow: hidden;
     transition: .5s;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -488,7 +489,6 @@ section {
 .btn-box .btn:hover::before {
     width: 100%;
 }
-/* From Uiverse.io by ilkhoeri */ 
 .button {
     --h-button: 48px;
     --w-button: 102px;
@@ -513,6 +513,7 @@ section {
     padding: 12px 18px;
     margin-right: 10px;
   }
+  
   .button::before,
   .button::after {
     content: "";
@@ -539,9 +540,7 @@ section {
       ),
       linear-gradient(0deg, #7a5af8, #7a5af8);
   }
-  .button:active {
-    transform: scale(0.95);
-  }
+
   
   .fold {
     z-index: 1;
