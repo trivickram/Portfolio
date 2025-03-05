@@ -933,14 +933,6 @@ span {
     padding-top: .5rem;
 }
 
-.skills {
-    min-height: auto;
-    padding-bottom: 7rem;
-    /* background: url(https://www.itl.cat/pngfile/big/9-94683_download-wallpaper-vector.jpg); */
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
 
 .skills .skills-row {
     display: flex;
