@@ -279,8 +279,8 @@ html {
     z-index: 100;
     background: rgba( 255, 255, 255, 0 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 2.5px );
     -webkit-backdrop-filter: blur( 2.5px );
+    backdrop-filter: blur( 2.5px );
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
@@ -389,6 +389,7 @@ section {
      background-image: linear-gradient(var(--main-color), var(--main-color)); 
     background-repeat: no-repeat;
     -webkit-background-clip: text;
+    background-clip: text;
     background-position: -33rem 0;
     animation: homeBgText 6s linear infinite;
     animation-delay: 2s;
@@ -450,6 +451,7 @@ section {
   background: linear-gradient(90deg, #a855f7, #06b6d4, #9333ea, #22d3ee);
   background-size: 300% 300%;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradientMove 5s infinite linear;
 }
