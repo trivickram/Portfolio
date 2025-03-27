@@ -1,72 +1,70 @@
-let menuIcon = document.querySelector('#menu-icon');
-let navbar = document.querySelector('.navbar');
+let menuIcon = document.querySelector("#menu-icon");
+let navbar = document.querySelector(".navbar");
 
 menuIcon.onclick = () => {
-    menuIcon.classList.toggle('bx-x');
-    navbar.classList.toggle('active');
-}
+  menuIcon.classList.toggle("bx-x");
+  navbar.classList.toggle("active");
+};
 
-let selections = document.querySelectorAll('section');
-let navlinks = document.querySelectorAll('header nav a');
+let selections = document.querySelectorAll("section");
+let navlinks = document.querySelectorAll("header nav a");
 
 window.onscroll = () => {
-    selections.forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 100;
-        let height = sec.offsetHeight;
-        let id = sec.getAttribute('id');
+  selections.forEach((sec) => {
+    let top = window.scrollY;
+    let offset = sec.offsetTop - 100;
+    let height = sec.offsetHeight;
+    let id = sec.getAttribute("id");
 
-        if (top >= offset && top < offset + height) {
-            navlinks.forEach(links => {
-                links.classList.remove('active');
-                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
-            });
-        }
-    });
-    let header = document.querySelector('header');
-    header.classList.toggle('sticky', window.scrollY > 100);
+    if (top >= offset && top < offset + height) {
+      navlinks.forEach((links) => {
+        links.classList.remove("active");
+        document
+          .querySelector("header nav a[href*=" + id + "]")
+          .classList.add("active");
+      });
+    }
+  });
+  let header = document.querySelector("header");
+  header.classList.toggle("sticky", window.scrollY > 100);
 
-    menuIcon.classList.remove('bx-x');
-    navbar.classList.remove('active');
-}
+  menuIcon.classList.remove("bx-x");
+  navbar.classList.remove("active");
+};
 
-const form = document.getElementById('dataForm');
+const form = document.getElementById("dataForm");
+document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevents page refresh
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
+    var Username = document.getElementById("name").value;
+    var Email = document.getElementById("email").value;
+    var MobileNumber = document.getElementById("number").value;
+    var Subject = document.getElementById("subject").value;
+    var Message = document.getElementById("message").value;
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const mobileNumber = document.getElementById('mobileNumber').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
-
-    const data = {
-        name,
-        email,
-        mobileNumber,
-        subject,
-        message
+    var templateParams = {
+        user_name: Username,
+        user_email: Email,
+        user_number: MobileNumber,
+        subject: Subject,
+        message: Message,
     };
 
-    function scrollToContact() {
-        document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
-    }
-    
-    
-    // Use CORS middleware
-    app.use(cors());
-    
-    const payload = new FormData(form);
-
-    fetch('http://localhost:5500/submitdata', {
-        method : 'POST',
-        headers : {
-            'Content-Type' : 'application/json'
-        },
-        body : JSON.stringify(data)
-    })
-        .then(res => res.json())
-        .then(data_value => console.log(data_value))
-        .catch(err => {alert(err);console.error(err);})
+    emailjs.send("service_af0c8xr", "template_dnb2u7s", templateParams)
+        .then(function(response) {
+            alert("Email Sent Successfully!");
+            console.log("SUCCESS!", response.status, response.text);
+        })
+        .catch(function(error) {
+            alert("Failed to send email.");
+            console.error("FAILED...", error);
+        });
+        emailjs.send("service_af0c8xr", "template_auto_reply", templateParams)
+        .then(function(response) {
+            alert("Your message has been sent. You will receive an auto-reply shortly!");
+            console.log("Auto-reply sent!", response.status, response.text);
+        }, function(error) {
+            console.error("Failed to send auto-reply", error);
+        });
 });
+
