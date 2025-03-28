@@ -32,8 +32,7 @@ window.onscroll = () => {
   navbar.classList.remove("active");
 };
 
-const form = document.getElementById("dataForm");
-document.getElementById("contact-form").addEventListener("submit", function(event) {
+const form = document.getElementById("dataForm");document.getElementById("contact-form").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevents page refresh
 
     var Username = document.getElementById("name").value;
@@ -50,21 +49,27 @@ document.getElementById("contact-form").addEventListener("submit", function(even
         message: Message,
     };
 
+    // Send Contact Email
     emailjs.send("service_af0c8xr", "template_dnb2u7s", templateParams)
         .then(function(response) {
             alert("Email Sent Successfully!");
             console.log("SUCCESS!", response.status, response.text);
+
+            // Auto-reply email after the first one succeeds
+            var autoReplyParams = {
+                user_name: Username,
+                to_email: Email, // This should be mapped in your EmailJS template
+                subject: "Thank you for contacting us!",
+                message: "We have received your message and will get back to you soon."
+            };
+
+            return emailjs.send("service_af0c8xr", "template_i88yszn", autoReplyParams);
         })
-        .catch(function(error) {
-            alert("Failed to send email.");
-            console.error("FAILED...", error);
-        });
-        emailjs.send("service_af0c8xr", "template_auto_reply", templateParams)
         .then(function(response) {
             alert("Your message has been sent. You will receive an auto-reply shortly!");
             console.log("Auto-reply sent!", response.status, response.text);
-        }, function(error) {
-            console.error("Failed to send auto-reply", error);
+        })
+        .catch(function(error) {
+            console.error("Failed to send email or auto-reply", error);
         });
 });
-
