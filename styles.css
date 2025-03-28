@@ -218,7 +218,6 @@ html {
     142px 954px #fff, 1831px 544px #fff, 1008px 779px #fff, 1889px 257px #fff,
     1006px 1085px #fff, 428px 1043px #fff, 1915px 1585px #fff, 232px 1935px #fff,
     767px 706px #fff, 431px 334px #fff, 897px 15px #fff, 705px 146px #fff;
-  animation: animStar 50s linear infinite;
 }
 #stars:after {
   content: " ";
@@ -591,30 +590,40 @@ html {
 @keyframes appear {
   from {
     opacity: 0;
-    /* transform: translateX(-100px); */
+    transform: translateX(-100px);
     scale: 0.1;
   }
   to {
     opacity: 1;
-    /* transform: translateX(0px); */
+    transform: translateX(0px);
     scale: 1;
   }
 }
 .card2 {
-  animation: appear 100s linear;
+  animation: appear 10s linear;
   animation-timeline: view();
-  animation-range: entry 0% cover 40%;
+  animation-range: entry 0% cover 35%;
+}
+@supports (animation-timeline: view()) {
+  .card2 {
+    animation-timeline: view();
+  }
+}
+@supports not (animation-timeline: view()) {
+  .card2 {
+    animation-timeline: auto;
+  }
 }
 @keyframes education {
   from {
     opacity: 0;
-    
+
     transform: translateX(-300px);
     /* scale: 0.5; */
   }
   to {
     opacity: 1;
-    
+
     transform: translateX(0px);
     /* scale: 1; */
   }
@@ -677,6 +686,7 @@ html {
   height: 100%;
   position: absolute;
   top: 0;
+  left: 0;
   left: 0;
   background-color: var(--skin-color);
   border-radius: 10px 40px;
@@ -983,11 +993,11 @@ section {
   }
 }
 
-.about-content  {
+.about-content {
   animation: text-transition 10s linear;
   animation-timeline: view();
   animation-range: entry 0% cover 40%;
-} 
+}
 @keyframes fadeSlideIn {
   0% {
     opacity: 0;
