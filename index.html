@@ -363,11 +363,6 @@
             <img src="HashTag.webp" alt="Project 4">
         </div>
     </a>
-    <a href="https://gen-passcode.netlify.app/" class="card" target="_blank" rel="noopener">
-      <div class="card2">
-          <img src="passcode.png" alt="Project 4">
-      </div>
-  </a>
       </div>
     </section>
 
@@ -376,14 +371,14 @@
         Contact <span class="animated-gradient-text">Me</span>
       </h2>
 
-      <form id="contact-form">
+      <form id="contact-form" autocomplete="on">
         <div class="input-box">
           <div class="input-field">
-            <input type="text" placeholder="Name" id="name" required />
+            <input type="text" placeholder="Name" id="name" required autocomplete="on"/>
             <span class="focus"></span>
           </div>
           <div class="input-field">
-            <input type="text" placeholder="Email" id="email" required />
+            <input type="text" placeholder="Email" id="email" required autocomplete="on" />
             <span class="focus"></span>
           </div>
         </div>
@@ -395,6 +390,7 @@
               placeholder="Mobile number"
               id="number"
               required
+              autocomplete="on"
             />
             <span class="focus"></span>
           </div>
@@ -404,6 +400,7 @@
               placeholder="Email Subject"
               id="subject"
               required
+              autocomplete="on"
             />
             <span class="focus"></span>
           </div>
@@ -416,6 +413,7 @@
             cols="30"
             rows="10"
             placeholder="Drop your message here... but beware! It might be read by highly caffeinated developers. ☕😆"
+            autocomplete="on"
           ></textarea>
           <spac class="focus"></spac>
         </div>
@@ -454,7 +452,7 @@
           (window.vaq = window.vaq || []).push(arguments);
         };
     </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- <script defer src="/_vercel/insights/script.js"></script> -->
     <script>
       if (typeof Typed !== "undefined") {
         const typed = new Typed(".auto-type", {
@@ -493,15 +491,20 @@
     <script>
       document
         .getElementById("contact-form")
-        .addEventListener("submit", emailsend);
+        .addEventListener("submit", function emailsend(event) {
+          event.preventDefault();
+          console.log("Form submitted!");
+          // Add your email sending logic here
+        });
+        
     </script>
     <script src="script.js"></script>
     
-    <script
+    <!-- <script
       defer
       src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon='{"token": "0437559815af4a66bb930f5cbe4027dc"}'
     ></script>
-  
+   -->
   </body>
 </html>
