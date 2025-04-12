@@ -1093,7 +1093,6 @@ section {
   padding: 12px 18px;
   margin-right: 10px;
 }
-
 .button::before,
 .button::after {
   content: "";
