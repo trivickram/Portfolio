@@ -1418,30 +1418,283 @@ section {
 }
 
 .grid-container {
-  margin-top: 100px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
   width: 100%;
-  max-width: 900px;
-  padding: 20px;
-  justify-content: space-between;
+  max-width: 1400px;
+  padding: 2rem;
+  justify-items: center;
 }
 
 @media (min-width: 768px) {
   .grid-container {
-    max-width: 900px;
-    display: flex;
-    flex-wrap: wrap;
-
-    justify-content: space-between;
-    margin: auto;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.2rem;
   }
 }
 
+@media (min-width: 1200px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Modern Glassmorphism Project Cards */
+.project-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 0;
+  width: 100%;
+  max-width: 340px;
+  height: 420px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(120, 119, 198, 0.3), 
+    rgba(255, 118, 117, 0.3), 
+    rgba(253, 244, 142, 0.3), 
+    rgba(142, 250, 142, 0.3),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.project-image {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  filter: contrast(1.1) saturate(1.1);
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+  filter: contrast(1.2) saturate(1.2);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+.project-type {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.project-card:hover .project-type {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.project-content {
+  padding: 1.5rem;
+  height: calc(100% - 160px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #7877c6, #ff7675, #fdf48e, #8efa8e);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 8s ease infinite;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.project-description {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.project-card:hover .project-description {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.tech-tag {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+.tech-tag:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-1px) scale(1.05);
+}
+
+.project-links {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: auto;
+}
+
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.btn-primary {
+  background: rgba(120, 119, 198, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+  border: 1px solid rgba(120, 119, 198, 0.3);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  background: rgba(120, 119, 198, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(120, 119, 198, 0.2);
+  border-color: rgba(120, 119, 198, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.btn-secondary.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-primary i, .btn-secondary i {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-primary:hover i, .btn-secondary:hover i {
+  transform: translateX(2px);
+}
+
+/* Legacy card styles for backward compatibility */
 .card {
   width: 90%;
   max-width: 250px;
@@ -1451,7 +1704,6 @@ section {
   transition: all 0.3s;
   display: flex;
   justify-content: center;
-
   align-items: center;
   text-decoration: none;
   cursor: pointer;
