@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(ellipse at bottom, #0b2645 0%, #090a0f 60%, #000000 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .resume-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00abf0, #0066cc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 48px;
+            color: white;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .profile-title {
+            color: #00abf0;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .contact-item i {
+            color: #00abf0;
+            width: 20px;
+        }
+
+        .skills-section h3,
+        .languages-section h3 {
+            color: #00abf0;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .skill-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00abf0, #0066cc);
+            border-radius: 3px;
+            transition: width 2s ease;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #00abf0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title i {
+            font-size: 24px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+            border-left: 2px solid rgba(0, 171, 240, 0.3);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: #00abf0;
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            color: #00abf0;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+
+        .timeline-company {
+            color: #ccc;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-description {
+            color: #ddd;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: rgba(0, 171, 240, 0.1);
+            color: #00abf0;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            border: 1px solid rgba(0, 171, 240, 0.3);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 171, 240, 0.2);
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .project-description {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 171, 240, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 171, 240, 0.3);
+        }
+
+        .download-btn {
+            background: linear-gradient(45deg, #00abf0, #0066cc);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 171, 240, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .resume-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="resume-container">
+        <div class="sidebar">
+            <div class="profile-section">
+                <div class="profile-image">
+                    TV
+                </div>
+                <div class="profile-name">Trivickram Baratam</div>
+                <div class="profile-title">Full Stack Developer & AI/ML Enthusiast</div>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="bx bx-envelope"></i>
+                    <span>trivickram@email.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="bx bx-phone"></i>
+                    <span>+91 9876543210</span>
+                </div>
+                <div class="contact-item">
+                    <i class="bx bx-map"></i>
+                    <span>Vellore, Tamil Nadu</span>
+                </div>
+                <div class="contact-item">
+                    <i class="bx bxl-linkedin"></i>
+                    <span>linkedin.com/in/trivickram</span>
+                </div>
+                <div class="contact-item">
+                    <i class="bx bxl-github"></i>
+                    <span>github.com/trivickram</span>
+                </div>
+            </div>
+
+            <div class="skills-section">
+                <h3>Technical Skills</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>JavaScript</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Python</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="85%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>React.js</span>
+                        <span>88%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="88%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Node.js</span>
+                        <span>82%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="82%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Machine Learning</span>
+                        <span>78%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-width="78%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="languages-section">
+                <h3>Languages</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>English</span>
+                        <span>Fluent</span>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Telugu</span>
+                        <span>Native</span>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Hindi</span>
+                        <span>Intermediate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <div class="section-title">
+                    <i class="bx bx-user"></i>
+                    About Me
+                </div>
+                <p>Passionate Final year ECE student at VIT with expertise in Full Stack Development and AI/ML. 
+                   Experienced in building scalable web applications, implementing machine learning solutions, 
+                   and creating user-centric digital experiences. Strong problem-solving skills with a focus 
+                   on innovative technology solutions.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    <i class="bx bx-briefcase"></i>
+                    Experience
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024 - Present</div>
+                    <div class="timeline-title">Full Stack Developer</div>
+                    <div class="timeline-company">Freelance</div>
+                    <div class="timeline-description">
+                        Developed and deployed multiple web applications using modern tech stacks. 
+                        Collaborated with clients to deliver custom solutions for business needs.
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">AWS</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2023 - 2024</div>
+                    <div class="timeline-title">AI/ML Research Intern</div>
+                    <div class="timeline-company">VIT Research Lab</div>
+                    <div class="timeline-description">
+                        Worked on machine learning models for healthcare applications. 
+                        Developed Parkinson's disease prediction system with 95% accuracy.
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                        <span class="tech-tag">Pandas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    <i class="bx bx-graduation"></i>
+                    Education
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2022 - 2026</div>
+                    <div class="timeline-title">Bachelor of Technology</div>
+                    <div class="timeline-company">Vellore Institute of Technology</div>
+                    <div class="timeline-description">
+                        Electronics and Communication Engineering with focus on software development 
+                        and machine learning applications.
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2020 - 2022</div>
+                    <div class="timeline-title">Intermediate (12th)</div>
+                    <div class="timeline-company">Sri Chaitanya Junior College</div>
+                    <div class="timeline-description">
+                        Science stream with Mathematics, Physics, and Chemistry.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    <i class="bx bx-code-alt"></i>
+                    Featured Projects
+                </div>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-title">AI-Cold Email Generator</div>
+                        <div class="project-description">
+                            AI-powered platform for generating personalized cold emails using OpenAI's GPT models.
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">OpenAI API</span>
+                            <span class="tech-tag">React</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-title">SnackOverflow</div>
+                        <div class="project-description">
+                            Q&A platform for developers with real-time chat and code snippet sharing.
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-title">Parkinson's Predictor</div>
+                        <div class="project-description">
+                            Machine learning model for early detection of Parkinson's disease using voice analysis.
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                            <span class="tech-tag">Flask</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="download-section">
+                <h3>Get Full Resume</h3>
+                <p>Download the complete PDF version of my resume</p>
+                <a href="assets/Resume.pdf" download class="download-btn">
+                    <i class="bx bx-download"></i>
+                    Download PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate skill bars
+        function animateSkills() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        }
+
+        // Animate sections on scroll
+        function animateSections() {
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(animateSkills, 1000);
+            animateSections();
+        });
+    </script>
+</body>
+</html>
