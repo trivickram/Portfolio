@@ -217,7 +217,7 @@
 
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 171, 240, 0.2);
+            box-shadow: 0 10px 30px rgba(132, 240, 0, 0.2);
         }
 
         .project-title {
@@ -259,11 +259,246 @@
 
         .download-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(22, 70, 90, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 171, 240, 0.4);
+        }
+
+        /* Certifications & Licenses Styles */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .cert-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffd700, #ff8c00, #00abf0);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 172, 240, 0.141);
+            border-color: rgba(0, 171, 240, 0.3);
+        }
+
+        .cert-card:hover::before {
+            opacity: 1;
+        }
+
+        .cert-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .cert-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            /* background: linear-gradient(90deg, #ffd700, #ff8c00); */
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: transform 0.6s ease;
+        }
+
+        .cert-card:hover .cert-icon::after {
+            transform: rotate(45deg) translate(100%, 100%);
+        }
+
+        .cert-title {
+            flex: 1;
+        }
+
+        .cert-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .cert-issuer {
+            font-size: 14px;
+            color: #00abf0;
+            font-weight: 500;
+        }
+
+        .cert-badge {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #ffd700;
+            font-weight: 500;
+        }
+
+        .cert-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 171, 240, 0.1);
+            color: #00abf0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 171, 240, 0.3);
+        }
+
+        .cert-link:hover {
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            transform: translateX(5px);
+            color: white;
+        }
+
+        .achievements-container {
+            display: grid;
+            gap: 25px;
+        }
+
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 171, 240, 0.15);
+            border-color: rgba(0, 171, 240, 0.3);
+        }
+
+        .achievement-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .achievement-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .achievement-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+
+        .achievement-content {
+            flex: 1;
+        }
+
+        .achievement-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .achievement-description {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .achievement-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00abf0;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         @media (max-width: 768px) {
             .resume-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .certifications-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -453,6 +688,7 @@
                 </div>
             </div>
 
+            
             <div class="section">
                 <div class="section-title">
                     <i class="bx bx-code-alt"></i>
@@ -494,6 +730,84 @@
                     </div>
                 </div>
             </div>
+            <div class="section">
+                <div class="section-title">
+                    <i class="bx bx-certification"></i>
+                    Licenses & Certifications
+                </div>
+                <div class="certifications-grid">
+                    <div class="cert-card">
+                        <div class="cert-header">
+                            <div class="cert-icon">
+                                <i class="bx bxl-aws"></i>
+                            </div>
+                            <div class="cert-title">
+                                <div class="cert-name">AWS Certified Cloud Practitioner</div>
+                                <div class="cert-issuer">Amazon Web Services</div>
+                            </div>
+                            <div class="cert-badge">Verified</div>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener" class="cert-link">
+                            <i class="bx bx-badge-check"></i>
+                            View Badge
+                        </a>
+                    </div>
+                    
+                    <div class="cert-card">
+                        <div class="cert-header">
+                            <div class="cert-icon">
+                                <i class="bx bx-brain"></i>
+                            </div>
+                            <div class="cert-title">
+                                <div class="cert-name">Machine Learning Specialization</div>
+                                <div class="cert-issuer">Stanford University</div>
+                            </div>
+                            <div class="cert-badge">Completed</div>
+                        </div>
+                        <a href="#" target="_blank" rel="noopener" class="cert-link">
+                            <i class="bx bx-certification"></i>
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="section">
+                <div class="section-title">
+                    <i class="bx bx-trophy"></i>
+                    Achievements
+                </div>
+                <div class="achievements-container">
+                    <div class="achievement-card">
+                        <div class="achievement-header">
+                            <div class="achievement-icon">
+                                <i class="bx bx-code-curly"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <div class="achievement-title">LeetCode Problem Solver</div>
+                                <div class="achievement-description">
+                                    Solved 300+ problems on LeetCode with focus on dynamic programming, recursion, 
+                                    graphs, and system design. Consistently ranked in top 15% of global users.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="achievement-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">300+</span>
+                                <span class="stat-label">Problems</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">70%</span>
+                                <span class="stat-label">Success Rate</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">Solutions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="download-section">
                 <h3>Get Full Resume</h3>
@@ -505,7 +819,7 @@
             </div>
         </div>
     </div>
-
+    
     <script>
         function animateSkills() {
             const skillBars = document.querySelectorAll('.skill-progress');
