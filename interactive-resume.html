@@ -284,11 +284,11 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="bx bx-envelope"></i>
-                    <span>trivickram@email.com</span>
+                    <span>trivickram@gmail.com</span>
                 </div>
                 <div class="contact-item">
                     <i class="bx bx-phone"></i>
-                    <span>+91 9876543210</span>
+                    <span>+91 7780275446</span>
                 </div>
                 <div class="contact-item">
                     <i class="bx bx-map"></i>
@@ -296,11 +296,15 @@
                 </div>
                 <div class="contact-item">
                     <i class="bx bxl-linkedin"></i>
-                    <span>linkedin.com/in/trivickram</span>
+                    <a href="https://linkedin.com/in/trivickram" target="_blank" style="text-decoration: none;color: inherit;">
+                        linkedin.com/in/trivickram
+                    </a>
                 </div>
                 <div class="contact-item">
                     <i class="bx bxl-github"></i>
-                    <span>github.com/trivickram</span>
+                    <a href="https://github.com/trivickram" target="_blank" style="text-decoration: none;color: inherit;">
+                        github.com/trivickram
+                    </a>
                 </div>
             </div>
 
@@ -503,7 +507,6 @@
     </div>
 
     <script>
-        // Animate skill bars
         function animateSkills() {
             const skillBars = document.querySelectorAll('.skill-progress');
             skillBars.forEach(bar => {
@@ -514,7 +517,6 @@
             });
         }
 
-        // Animate sections on scroll
         function animateSections() {
             const sections = document.querySelectorAll('.section');
             const observer = new IntersectionObserver((entries) => {
@@ -530,7 +532,6 @@
             });
         }
 
-        // Initialize animations
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(animateSkills, 1000);
             animateSections();
