@@ -172,13 +172,16 @@
             text-align: center;
             padding: 120px 0;
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .profile-image {
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: url('WhatsApp Image 2025-07-23 at 19.25.28_6191a202 (1).jpg') center center/cover no-repeat, linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
             object-fit: cover;
             object-position: center center;
             background-size: 300% 300%;
@@ -367,17 +370,161 @@
             font-weight: 500;
         }
 
-        /* Section Styles */
+        /* Enhanced Section Styles with Modern Transitions */
         .section {
             margin: 120px 0;
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
+            transform: translateY(60px);
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .section.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Staggered Animations for Cards */
+        .stat-card {
+            opacity: 0;
+            transform: translateY(30px) rotateX(15deg);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .project-card {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Skill Category Entrance Animation */
+        .skill-category {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .skill-category.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Enhanced Hover States */
+        .stat-card:hover {
+            transform: translateY(-15px) rotateX(-5deg) scale(1.03);
+            border-color: #00ff88;
+            box-shadow: 0 25px 50px rgba(0, 255, 136, 0.25);
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02) rotateY(2deg);
+            border-color: #00ff88;
+            box-shadow: 0 30px 60px rgba(0, 255, 136, 0.2);
+        }
+
+        /* Smooth Scroll Enhancement */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading State for Stats */
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+            transition: all 0.3s ease;
+        }
+
+        .stat-number.counting {
+            color: #00ff88;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Enhanced Typing Text Animation */
+        .typing-text {
+            position: relative;
+        }
+
+        .typing-text::after {
+            content: '|';
+            display: inline-block;
+            animation: blink 1s infinite;
+            color: #00ff88;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Progressive Enhancement for Hero */
+        .hero-section {
+            transform: translateY(0);
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Smooth Navigation Indicator */
+        .nav-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        /* Enhanced Social Links Animation */
+        .social-link {
+            transform: translateY(0) scale(1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .social-link:hover {
+            transform: translateY(-12px) scale(1.15) rotateZ(5deg);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Improved Contact Section Animation */
+        .contact-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .contact-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Enhanced Download Button */
+        .download-btn {
+            position: relative;
+            overflow: hidden;
+            transform: scale(1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 255, 136, 0.5);
+        }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+        }
+
+        .download-btn:active::after {
+            width: 300px;
+            height: 300px;
         }
 
         .section-title {
@@ -515,7 +662,7 @@
         }
 
         .project-card:hover::before {
-            /* left: 100%; */
+            left: 100%;
         }
 
         .project-card:hover {
@@ -783,6 +930,9 @@
     <!-- Background -->
     <div class="background-container"></div>
     <div class="particles" id="particles"></div>
+    
+    <!-- Progress Bar -->
+    <div class="nav-progress" id="navProgress"></div>
     
     <!-- Navigation -->
     <nav class="nav-bar">
@@ -1105,7 +1255,7 @@
                     <p style="margin-bottom: 30px; color: #cccccc;">Download my complete resume and let's create something extraordinary together!</p>
                     <a href="interactive-resume.html" class="download-btn" onclick="downloadResume()">
                         <i class="bx bx-download"></i>
-                        Download Resume
+                        View Resume
                     </a>
                 </div>
             </div>
@@ -1177,66 +1327,248 @@
             }
         }
 
-        // Counter Animation
+        // Scroll-triggered Counter Animation
         function animateCounters() {
             const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                const target = parseFloat(counter.getAttribute('data-target'));
-                const increment = target / 100;
-                let current = 0;
-
-                const updateCounter = () => {
-                    if (current < target) {
-                        current += increment;
-                        if (target % 1 !== 0) {
-                            counter.textContent = current.toFixed(2);
-                        } else {
-                            counter.textContent = Math.ceil(current);
-                        }
-                        setTimeout(updateCounter, 20);
-                    } else {
-                        if (target % 1 !== 0) {
-                            counter.textContent = target.toFixed(2);
-                        } else {
-                            counter.textContent = target;
-                        }
+            const statsSection = document.querySelector('.stats-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        counters.forEach((counter, index) => {
+                            const target = parseFloat(counter.getAttribute('data-target'));
+                            const increment = target / 250; // Slower, smoother animation
+                            let current = 0;
+                            
+                            // Add staggered delay for each counter
+                            setTimeout(() => {
+                                const updateCounter = () => {
+                                    if (current < target) {
+                                        current += increment;
+                                        if (target % 1 !== 0) {
+                                            counter.textContent = current.toFixed(2);
+                                        } else {
+                                            counter.textContent = Math.ceil(current);
+                                        }
+                                        requestAnimationFrame(updateCounter);
+                                    } else {
+                                        if (target % 1 !== 0) {
+                                            counter.textContent = target.toFixed(2);
+                                        } else {
+                                            counter.textContent = target;
+                                        }
+                                    }
+                                };
+                                updateCounter();
+                            }, index * 150); // Staggered animation
+                        });
+                        observer.unobserve(entry.target); // Only animate once
                     }
-                };
-                updateCounter();
-            });
+                });
+            }, { threshold: 0.3 });
+            
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
         }
 
-        // Skill Bar Animation
+        // Enhanced Skill Bar Animation with Scroll Trigger
         function animateSkillBars() {
-            const skillBars = document.querySelectorAll('.skill-progress');
-            skillBars.forEach((bar, index) => {
-                const width = bar.getAttribute('data-width');
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, index * 200);
+            const skillCategories = document.querySelectorAll('.skill-category');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const skillBars = entry.target.querySelectorAll('.skill-progress');
+                        skillBars.forEach((bar, index) => {
+                            const width = bar.getAttribute('data-width');
+                            setTimeout(() => {
+                                bar.style.width = width;
+                            }, index * 200);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            skillCategories.forEach(category => {
+                observer.observe(category);
             });
         }
 
-        // Scroll Animations
+        // Enhanced Scroll Animations with Modern Transitions
         function handleScrollAnimations() {
+            // Intersection Observer for main sections
             const sections = document.querySelectorAll('.section');
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Staggered animation for project cards
+            const projectCards = document.querySelectorAll('.project-card');
+            const projectObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const cards = entry.target.parentElement.querySelectorAll('.project-card');
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0) scale(1)';
+                            }, index * 150);
+                        });
+                        projectObserver.unobserve(entry.target.parentElement);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            if (projectCards.length > 0) {
+                projectObserver.observe(projectCards[0]);
+            }
+
+            // Stat cards individual animation
+            const statCards = document.querySelectorAll('.stat-card');
+            const statObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const cards = entry.target.parentElement.querySelectorAll('.stat-card');
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0) rotateX(0)';
+                            }, index * 100);
+                        });
+                        statObserver.unobserve(entry.target.parentElement);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            if (statCards.length > 0) {
+                statObserver.observe(statCards[0]);
+            }
+
+            // Parallax effect for hero section
+            const hero = document.querySelector('.hero-section');
+            const parallaxObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        window.addEventListener('scroll', () => {
+                            const scrolled = window.pageYOffset;
+                            const rate = scrolled * -0.3;
+                            if (hero) {
+                                hero.style.transform = `translateY(${rate}px)`;
+                            }
+                        });
+                    }
+                });
+            });
+
+            if (hero) {
+                parallaxObserver.observe(hero);
+            }
+        }
+
+        // Enhanced Navigation Progress Bar
+        function updateProgressBar() {
+            const progressBar = document.getElementById('navProgress');
+            const scrollTop = window.pageYOffset;
+            const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / documentHeight) * 100;
+            
+            if (progressBar) {
+                progressBar.style.width = scrollPercent + '%';
+            }
+        }
+
+        // Staggered Contact Items Animation
+        function animateContactItems() {
+            const contactItems = document.querySelectorAll('.contact-item');
+            const contactSection = document.querySelector('.contact-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        contactItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, index * 150);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            if (contactSection) {
+                observer.observe(contactSection);
+            }
+        }
+
+        // Enhanced Skill Categories Animation
+        function animateSkillCategories() {
+            const skillCategories = document.querySelectorAll('.skill-category');
+            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.2 });
 
-            sections.forEach(section => {
-                observer.observe(section);
+            skillCategories.forEach(category => {
+                observer.observe(category);
             });
         }
 
-        // Smooth Scrolling
+        // Add counting animation to stat numbers
+        function addCountingClass() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                counter.classList.add('counting');
+                setTimeout(() => {
+                    counter.classList.remove('counting');
+                }, 2000);
+            });
+        }
+
+        // Smooth scroll with easing
+        function smoothScrollTo(target, duration = 1000) {
+            const targetElement = document.getElementById(target);
+            if (!targetElement) return;
+
+            const targetPosition = targetElement.offsetTop - 80;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const run = easeInOutQuart(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+
+            function easeInOutQuart(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t * t * t + b;
+                t -= 2;
+                return -c / 2 * (t * t * t * t - 2) + b;
+            }
+
+            requestAnimationFrame(animation);
+        }
+
+        // Updated Smooth Scrolling Function
         function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            section.scrollIntoView({ behavior: 'smooth' });
+            smoothScrollTo(sectionId, 1200);
         }
 
         // Scroll to Top
@@ -1256,10 +1588,6 @@
             });
         }
 
-        // Download Resume
-        function downloadResume() {
-            alert('🚀 Resume download feature - Replace with actual PDF link!');
-        }
 
         // Mouse movement effect
         document.addEventListener('mousemove', (e) => {
@@ -1285,12 +1613,9 @@
             cursorElement.style.top = e.clientY - 10 + 'px';
         });
 
-        // Initialize everything
         document.addEventListener('DOMContentLoaded', () => {
-            // Create background elements
             createParticles();
             
-            // Initialize typing animation
             const typingTexts = [
                 ' Full Stack Developer',
                 ' AI/ML Enthusiast', 
@@ -1300,14 +1625,39 @@
             ];
             new TypingAnimation(document.getElementById('typing-text'), typingTexts);
             
-            // Initialize animations with delay
-            setTimeout(() => {
-                animateCounters();
-                animateSkillBars();
-            }, 1000);
-            
+            // Initialize scroll-triggered animations (no delay needed)
+            animateCounters(); // Now scroll-triggered
+            animateSkillBars(); // Now scroll-triggered
+            animateSkillCategories();
+            animateContactItems();
             handleScrollAnimations();
             handleScrollToTop();
+            
+            // Add scroll progress bar
+            window.addEventListener('scroll', () => {
+                updateProgressBar();
+                
+                // Enhanced navbar on scroll
+                const scrolled = window.pageYOffset;
+                const navbar = document.querySelector('.nav-bar');
+                
+                if (scrolled > 100) {
+                    navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+                    navbar.style.backdropFilter = 'blur(25px)';
+                } else {
+                    navbar.style.background = 'rgba(10, 10, 10, 0.9)';
+                    navbar.style.backdropFilter = 'blur(20px)';
+                }
+            });
+            
+            // Add entrance animation for hero
+            setTimeout(() => {
+                const hero = document.querySelector('.hero-section');
+                if (hero) {
+                    hero.style.opacity = '1';
+                    hero.style.transform = 'translateY(0)';
+                }
+            }, 100);
         });
 
         // Add some interactive effects
