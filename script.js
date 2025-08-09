@@ -49,13 +49,11 @@ const form = document.getElementById("dataForm");document.getElementById("contac
         message: Message,
     };
 
-    // Send Contact Email
     emailjs.send("service_af0c8xr", "template_dnb2u7s", templateParams)
         .then(function(response) {
             alert("Email Sent Successfully!");
             console.log("SUCCESS!", response.status, response.text);
 
-            // Auto-reply email after the first one succeeds
             var autoReplyParams = {
                 user_name: Username,
                 to_email: Email, // This should be mapped in your EmailJS template

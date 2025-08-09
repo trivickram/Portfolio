@@ -19,7 +19,6 @@
             line-height: 1.6;
         }
 
-        /* Dynamic Background */
         .background-container {
             position: fixed;
             top: 0;
@@ -38,7 +37,6 @@
             50% { filter: hue-rotate(30deg); }
         }
 
-        /* Animated particles */
         .particles {
             position: fixed;
             top: 0;
@@ -79,7 +77,6 @@
             }
         }
 
-        /* Navigation */
         .nav-bar {
             position: fixed;
             top: 0;
@@ -160,14 +157,12 @@
             transform: translateY(-2px);
         }
 
-        /* Main Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 80px 20px 20px;
         }
 
-        /* Hero Section */
         .hero-section {
             text-align: center;
             padding: 120px 0;
@@ -191,7 +186,7 @@
             margin: 0 auto 40px;
             font-size: 60px;
             color: white;
-            /* animation: profilePulse 4s ease-in-out infinite, gradientShift 8s ease-in-out infinite; */
+            
             position: relative;
             border: 3px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
@@ -305,7 +300,6 @@
             color: #00ff88;
         }
 
-        /* Stats Section */
         .stats-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -370,7 +364,6 @@
             font-weight: 500;
         }
 
-        /* Enhanced Section Styles with Modern Transitions */
         .section {
             margin: 120px 0;
             opacity: 0;
@@ -927,14 +920,11 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Background -->
     <div class="background-container"></div>
     <div class="particles" id="particles"></div>
     
-    <!-- Progress Bar -->
     <div class="nav-progress" id="navProgress"></div>
     
-    <!-- Navigation -->
     <nav class="nav-bar">
         <div class="nav-content">
             <div class="logo">
@@ -954,7 +944,6 @@
     </nav>
 
     <div class="container">
-        <!-- Hero Section -->
         <section id="hero" class="hero-section">
             <div class="profile-image">BT</div>
             <h1 class="hero-title">Baratam Trivickram</h1>
@@ -980,7 +969,6 @@
             </div>
         </section>
 
-        <!-- Stats Section -->
         <section class="stats-section">
             <div class="stat-card">
                 <span class="stat-number" data-target="300">0</span>
@@ -1000,7 +988,6 @@
             </div>
         </section>
 
-        <!-- Skills Section -->
         <section id="about" class="section">
             <h2 class="section-title">Technical Expertise</h2>
             <div class="skills-grid">
@@ -1126,7 +1113,6 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
         <section id="projects" class="section">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
@@ -1228,7 +1214,6 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="section">
             <h2 class="section-title">Let's Connect & Build Something Amazing!</h2>
             <div class="contact-section">
@@ -1262,13 +1247,11 @@
         </section>
     </div>
 
-    <!-- Scroll to top button -->
     <button class="scroll-top" onclick="scrollToTop()">
         <i class="bx bx-up-arrow-alt"></i>
     </button>
 
     <script>
-        // Create animated particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const numParticles = 50;
@@ -1288,7 +1271,6 @@
             }
         }
 
-        // Typing Animation
         class TypingAnimation {
             constructor(element, texts, speed = 100) {
                 this.element = element;
@@ -1327,7 +1309,6 @@
             }
         }
 
-        // Scroll-triggered Counter Animation
         function animateCounters() {
             const counters = document.querySelectorAll('.stat-number');
             const statsSection = document.querySelector('.stats-section');
@@ -1340,7 +1321,6 @@
                             const increment = target / 250; // Slower, smoother animation
                             let current = 0;
                             
-                            // Add staggered delay for each counter
                             setTimeout(() => {
                                 const updateCounter = () => {
                                     if (current < target) {
@@ -1372,7 +1352,6 @@
             }
         }
 
-        // Enhanced Skill Bar Animation with Scroll Trigger
         function animateSkillBars() {
             const skillCategories = document.querySelectorAll('.skill-category');
             
@@ -1396,9 +1375,7 @@
             });
         }
 
-        // Enhanced Scroll Animations with Modern Transitions
         function handleScrollAnimations() {
-            // Intersection Observer for main sections
             const sections = document.querySelectorAll('.section');
             const sectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1412,7 +1389,6 @@
                 sectionObserver.observe(section);
             });
 
-            // Staggered animation for project cards
             const projectCards = document.querySelectorAll('.project-card');
             const projectObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1433,7 +1409,6 @@
                 projectObserver.observe(projectCards[0]);
             }
 
-            // Stat cards individual animation
             const statCards = document.querySelectorAll('.stat-card');
             const statObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1454,7 +1429,6 @@
                 statObserver.observe(statCards[0]);
             }
 
-            // Parallax effect for hero section
             const hero = document.querySelector('.hero-section');
             const parallaxObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1475,7 +1449,6 @@
             }
         }
 
-        // Enhanced Navigation Progress Bar
         function updateProgressBar() {
             const progressBar = document.getElementById('navProgress');
             const scrollTop = window.pageYOffset;
@@ -1487,7 +1460,6 @@
             }
         }
 
-        // Staggered Contact Items Animation
         function animateContactItems() {
             const contactItems = document.querySelectorAll('.contact-item');
             const contactSection = document.querySelector('.contact-section');
@@ -1510,7 +1482,6 @@
             }
         }
 
-        // Enhanced Skill Categories Animation
         function animateSkillCategories() {
             const skillCategories = document.querySelectorAll('.skill-category');
             
@@ -1538,7 +1509,6 @@
             });
         }
 
-        // Smooth scroll with easing
         function smoothScrollTo(target, duration = 1000) {
             const targetElement = document.getElementById(target);
             if (!targetElement) return;
@@ -1571,7 +1541,6 @@
             smoothScrollTo(sectionId, 1200);
         }
 
-        // Scroll to Top
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
