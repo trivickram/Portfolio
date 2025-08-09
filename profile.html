@@ -376,7 +376,6 @@
             transform: translateY(0);
         }
 
-        /* Staggered Animations for Cards */
         .stat-card {
             opacity: 0;
             transform: translateY(30px) rotateX(15deg);
@@ -389,7 +388,6 @@
             transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Skill Category Entrance Animation */
         .skill-category {
             opacity: 0;
             transform: translateX(-30px);
@@ -401,7 +399,6 @@
             transform: translateX(0);
         }
 
-        /* Enhanced Hover States */
         .stat-card:hover {
             transform: translateY(-15px) rotateX(-5deg) scale(1.03);
             border-color: #00ff88;
@@ -414,12 +411,10 @@
             box-shadow: 0 30px 60px rgba(0, 255, 136, 0.2);
         }
 
-        /* Smooth Scroll Enhancement */
         html {
             scroll-behavior: smooth;
         }
 
-        /* Loading State for Stats */
         .stat-number {
             font-variant-numeric: tabular-nums;
             transition: all 0.3s ease;
@@ -430,7 +425,6 @@
             text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
         }
 
-        /* Enhanced Typing Text Animation */
         .typing-text {
             position: relative;
         }
@@ -448,13 +442,11 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Progressive Enhancement for Hero */
         .hero-section {
             transform: translateY(0);
             transition: transform 0.1s ease-out;
         }
 
-        /* Smooth Navigation Indicator */
         .nav-progress {
             position: fixed;
             top: 0;
@@ -466,7 +458,6 @@
             transition: width 0.1s ease;
         }
 
-        /* Enhanced Social Links Animation */
         .social-link {
             transform: translateY(0) scale(1);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -477,7 +468,6 @@
             box-shadow: 0 20px 40px rgba(0, 255, 136, 0.4);
         }
 
-        /* Improved Contact Section Animation */
         .contact-item {
             opacity: 0;
             transform: translateX(-20px);
@@ -550,7 +540,6 @@
             50% { width: 150px; }
         }
 
-        /* Skills Section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -728,8 +717,12 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
         }
+        .project-link i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            transform: translateY(0);
+        }
 
-        /* Contact Section */
         .contact-section {
             background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 212, 255, 0.05));
             padding: 60px 40px;
@@ -826,8 +819,7 @@
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
         }
-
-        /* Responsive Design */
+ 
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -870,8 +862,7 @@
                 padding: 25px;
             }
         }
-
-        /* Scroll to top button */
+ 
         .scroll-top {
             position: fixed;
             bottom: 30px;
@@ -900,8 +891,7 @@
             transform: translateY(-5px) scale(1.1);
             box-shadow: 0 15px 35px rgba(0, 255, 136, 0.4);
         }
-
-        /* Mobile menu */
+ 
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -1340,9 +1330,9 @@
                                     }
                                 };
                                 updateCounter();
-                            }, index * 150); // Staggered animation
+                            }, index * 150);  
                         });
-                        observer.unobserve(entry.target); // Only animate once
+                        observer.unobserve(entry.target);  once
                     }
                 });
             }, { threshold: 0.3 });
@@ -1497,8 +1487,7 @@
                 observer.observe(category);
             });
         }
-
-        // Add counting animation to stat numbers
+ 
         function addCountingClass() {
             const counters = document.querySelectorAll('.stat-number');
             counters.forEach(counter => {
@@ -1557,8 +1546,7 @@
             });
         }
 
-
-        // Mouse movement effect
+ 
         document.addEventListener('mousemove', (e) => {
             const cursor = document.querySelector('.cursor');
             if (!cursor) {
@@ -1593,20 +1581,17 @@
                 ' Software Engineer'
             ];
             new TypingAnimation(document.getElementById('typing-text'), typingTexts);
-            
-            // Initialize scroll-triggered animations (no delay needed)
-            animateCounters(); // Now scroll-triggered
-            animateSkillBars(); // Now scroll-triggered
+             
+            animateCounters();  
+            animateSkillBars();  
             animateSkillCategories();
             animateContactItems();
             handleScrollAnimations();
             handleScrollToTop();
-            
-            // Add scroll progress bar
+             
             window.addEventListener('scroll', () => {
                 updateProgressBar();
-                
-                // Enhanced navbar on scroll
+                 
                 const scrolled = window.pageYOffset;
                 const navbar = document.querySelector('.nav-bar');
                 
@@ -1618,8 +1603,7 @@
                     navbar.style.backdropFilter = 'blur(20px)';
                 }
             });
-            
-            // Add entrance animation for hero
+             
             setTimeout(() => {
                 const hero = document.querySelector('.hero-section');
                 if (hero) {
@@ -1628,10 +1612,8 @@
                 }
             }, 100);
         });
-
-        // Add some interactive effects
-        document.addEventListener('click', (e) => {
-            // Create click ripple effect
+ 
+        document.addEventListener('click', (e) => { 
             const ripple = document.createElement('div');
             ripple.style.cssText = `
                 position: fixed;
