@@ -819,6 +819,371 @@
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
         }
+
+        .certifications-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .certification-frame {
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 136, 0.08) 0%, 
+                rgba(0, 212, 255, 0.08) 50%, 
+                rgba(255, 107, 107, 0.08) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(25px);
+            box-shadow: 
+                0 25px 50px rgba(0, 255, 136, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .certification-frame::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                rgba(0, 255, 136, 0.1) 0deg,
+                rgba(0, 212, 255, 0.1) 120deg,
+                rgba(255, 107, 107, 0.1) 240deg,
+                rgba(0, 255, 136, 0.1) 360deg
+            );
+            animation: rotateBackground 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotateBackground {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .certification-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .certification-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #000000;
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.3);
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        .certification-header h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ffffff, #00ff88, #00d4ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes titleShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .certification-header p {
+            font-size: 1.1rem;
+            color: #cccccc;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .certificate-display {
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(0, 255, 136, 0.05) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 20px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .certificate-display:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: #00ff88;
+            box-shadow: 0 25px 60px rgba(0, 255, 136, 0.25);
+        }
+
+        .certificate-image-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: all 0.4s ease;
+            border-radius: 15px;
+        }
+
+        .certificate-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.1) 0%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.8) 100%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 25px;
+            opacity: 0;
+            transition: all 0.4s ease;
+            border-radius: 15px;
+        }
+
+        .certificate-display:hover .certificate-overlay {
+            opacity: 1;
+        }
+
+        .certificate-display:hover .certificate-image {
+            transform: scale(1.05);
+        }
+
+        .certificate-info {
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .certificate-info h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ffffff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .certificate-info p {
+            font-size: 1.1rem;
+            color: #00ff88;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .certificate-date {
+            font-size: 0.95rem;
+            color: #cccccc;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .certificate-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .view-certificate,
+        .verify-certificate {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-shadow: none;
+        }
+
+        .view-certificate {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #000000;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .view-certificate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+        }
+
+        .verify-certificate {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .verify-certificate:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00d4ff;
+            color: #00d4ff;
+            transform: translateY(-2px);
+        }
+
+        .certificate-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 136, 0.1), 
+                rgba(0, 212, 255, 0.1));
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            color: #cccccc;
+            text-align: center;
+        }
+
+        .certificate-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #00ff88;
+        }
+
+        .certificate-placeholder h5 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .certificate-placeholder p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .certification-footer {
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.3) 0%, 
+                rgba(0, 255, 136, 0.1) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cert-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .cert-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-number-cert {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label-cert {
+            font-size: 0.9rem;
+            color: #cccccc;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .certification-frame {
+                padding: 40px 30px;
+            }
+            
+            .certifications-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .certificate-image-container {
+                height: 250px;
+            }
+            
+            .certificate-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .view-certificate,
+            .verify-certificate {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .cert-stats {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .certificate-image-container {
+                height: 200px;
+            }
+            
+            .certificate-overlay {
+                padding: 20px;
+            }
+            
+            .certificate-info h4 {
+                font-size: 1.2rem;
+            }
+        }
  
         @media (max-width: 768px) {
             .nav-links {
@@ -925,6 +1290,7 @@
                 <li><a onclick="scrollToSection('hero')">Home</a></li>
                 <li><a onclick="scrollToSection('about')">Skills</a></li>
                 <li><a onclick="scrollToSection('projects')">Projects</a></li>
+                <li><a onclick="scrollToSection('certifications')">Certifications</a></li>
                 <li><a onclick="scrollToSection('contact')">Contact</a></li>
             </ul>
             <button class="mobile-menu-btn">
@@ -1199,6 +1565,109 @@
                         <a href="#" class="project-link">
                             <i class="bx bxl-github"></i> Source Code
                         </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications" class="section">
+            <h2 class="section-title">Professional Certifications</h2>
+            <div class="certifications-container">
+                <div class="certification-frame">
+                    <div class="certification-header">
+                        <div class="certification-icon">
+                            <i class="bx bx-award"></i>
+                        </div>
+                        <h3>Industry Recognition & Achievements</h3>
+                        <p>Validated expertise through prestigious certifications and professional development</p>
+                    </div>
+                    
+                    <div class="certifications-grid">
+                        <div class="certificate-display">
+                            <div class="certificate-image-container">
+                                <img src="assets/Certificates/AWS Certified Cloud Practitioner certificate-1.png" alt="AWS Certified Cloud Practitioner" class="certificate-image">
+                                <div class="certificate-overlay">
+                                    <div class="certificate-info">
+                                        <!-- <h4>AWS Certified Cloud Practitioner</h4>
+                                        <p>Amazon Web Services</p>
+                                        <span class="certificate-date">2024</span> -->
+                                    </div>
+                                    <div class="certificate-actions">
+                                        <a href="assets/Certificates/AWS Certified Cloud Practitioner certificate.pdf" class="view-certificate" target="_blank">
+                                            <i class="bx bx-fullscreen"></i>
+                                            View Full
+                                        </a>
+                                        <a href="https://www.credly.com/badges/01a2ecc4-2a7b-4590-a83a-29e945c4ff53/public_url" target="_blank" class="verify-certificate">
+                                            <i class="bx bx-check-shield"></i>
+                                            Verify
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="certificate-display">
+                            <div class="certificate-image-container">
+                                <img src="assets/Certificates/Machine Learning Specialization.png" alt="Machine Learning Specialization" class="certificate-image">
+                                <div class="certificate-overlay">
+                                    <div class="certificate-info">
+                                        <!-- <h4>Machine Learning Specialization</h4>
+                                        <p>Stanford University</p>
+                                        <span class="certificate-date">2023</span> -->
+                                    </div>
+                                    <div class="certificate-actions">
+                                        <a href="assets/Certificates/Machine Learning Specialization.pdf" class="view-certificate" target="_blank">
+                                            <i class="bx bx-fullscreen"></i>
+                                            View Full
+                                        </a>
+                                        <a href="#" class="verify-certificate">
+                                            <i class="bx bx-check-shield"></i>
+                                            Verify
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="certificate-display">
+                            <div class="certificate-image-container">
+                                <img src="assets/react-certificate.jpg" alt="React.js Professional Developer" class="certificate-image">
+                                <div class="certificate-overlay">
+                                    <div class="certificate-info">
+                                        <h4>React.js Professional Developer</h4>
+                                        <p>Meta</p>
+                                        <span class="certificate-date">2023</span>
+                                    </div>
+                                    <div class="certificate-actions">
+                                        <a href="assets/react-certificate.jpg" class="view-certificate" target="_blank">
+                                            <i class="bx bx-fullscreen"></i>
+                                            View Full
+                                        </a>
+                                        <a href="https://coursera.org/share/675dbf963ddc06e70cd272b7ad914cc9" class="verify-certificate">
+                                            <i class="bx bx-check-shield"></i>
+                                            Verify
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="certification-footer">
+                        <div class="cert-stats">
+                            <div class="cert-stat">
+                                <span class="stat-number-cert">3</span>
+                                <span class="stat-label-cert">Active Certifications</span>
+                            </div>
+                            <div class="cert-stat">
+                                <span class="stat-number-cert">2024</span>
+                                <span class="stat-label-cert">Latest Achievement</span>
+                            </div>
+                            <div class="cert-stat">
+                                <span class="stat-number-cert">100%</span>
+                                <span class="stat-label-cert">Success Rate</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
