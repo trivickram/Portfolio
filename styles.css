@@ -1689,51 +1689,22 @@ section {
   font-size: 16px;
 }
 
-/* Mobile Responsiveness */
+/* Mobile Responsiveness - Disable Chatbot for Mobile */
 @media (max-width: 768px) {
-  .chat-window {
-    width: 320px;
-    height: 480px;
-    right: 20px;
-    bottom: 90px;
-  }
-
-  .chat-toggle {
-    width: 60px;
-    height: 60px;
-    right: 20px;
-    bottom: 20px;
-  }
-
-  .chat-toggle i {
-    font-size: 20px;
-  }
-
-  .message-bubble {
-    max-width: 200px;
-    font-size: 13px;
+  .chat-widget {
+    display: none !important;
   }
 }
 
 @media (max-width: 480px) {
-  .chat-window {
-    width: calc(100vw - 40px);
-    height: 450px;
-    right: 20px;
-    left: 20px;
-    bottom: 90px;
-  }
-
-  .chat-toggle {
-    bottom: 30px;
-    right: 30px;
+  .chat-widget {
+    display: none !important;
   }
 }
 
 @media (max-height: 600px) {
-  .chat-window {
-    height: 400px;
-    bottom: 80px;
+  .chat-widget {
+    display: none !important;
   }
 }
 .points_wrapper .point {
