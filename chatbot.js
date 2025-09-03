@@ -339,9 +339,9 @@ class TrivickramChatBot {
         avatar.className = 'message-avatar';
         
         if (sender === 'bot') {
-            avatar.innerHTML = '<i class="fas fa-robot"></i>';
+            avatar.innerHTML = '<i class="bx bx-bot"></i>';
         } else {
-            avatar.innerHTML = 'You';
+            avatar.innerHTML = '<i class="bx bx-user"></i>';
         }
 
         const messageContent = document.createElement('div');
