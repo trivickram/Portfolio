@@ -5,9 +5,13 @@ class TrivickramChatBot {
         this.isOpen = false;
         this.isTyping = false;
         this.messageCount = 0;
+        this.lastResponse = '';
+        this.conversationContext = [];
         
         this.initializeElements();
         this.setupIntentSystem();
+        this.setupTypoCorrection();
+        this.setupSillyResponses();
         this.loadFAQs();
         this.bindEvents();
     }
@@ -26,7 +30,6 @@ class TrivickramChatBot {
     }
 
     setupIntentSystem() {
-        // Intent mapping for intelligent responses
         this.intents = {
             about: {
                 keywords: ['about', 'who', 'introduce', 'tell me about', 'background', 'bio'],
@@ -98,6 +101,84 @@ class TrivickramChatBot {
                 quickReplies: ['Specific Repos', 'Live Demos', 'Tech Stack']
             }
         };
+    }
+
+    setupTypoCorrection() {
+        // Common typos and their corrections
+        this.typoMap = {
+            // Common question word typos
+            'wht': 'what', 'wat': 'what', 'waht': 'what', 'whta': 'what',
+            'hwo': 'how', 'hwat': 'what', 'wich': 'which', 'whih': 'which',
+            'whne': 'when', 'wher': 'where', 'whre': 'where', 'were': 'where',
+            'wy': 'why', 'whyy': 'why', 'whyyy': 'why',
+            
+            // Common action words
+            'tel': 'tell', 'sho': 'show', 'giv': 'give', 'mak': 'make',
+            'buil': 'built', 'creat': 'create', 'wrk': 'work', 'wrks': 'works',
+            'cod': 'code', 'progra': 'program', 'projec': 'project', 'skil': 'skill',
+            
+            // Common tech terms
+            'pythn': 'python', 'pythom': 'python', 'java script': 'javascript', 
+            'reactjs': 'react', 'nodejs': 'node', 'machin learning': 'machine learning',
+            'artifical': 'artificial', 'inteligence': 'intelligence', 'ai ml': 'ai/ml',
+            'gihub': 'github', 'githab': 'github', 'linkdin': 'linkedin',
+            
+            // Common personal terms  
+            'trivikram': 'trivickram', 'trivickrm': 'trivickram', 'trivikrm': 'trivickram',
+            'about him': 'about', 'tell about': 'tell me about', 'show his': 'show',
+            
+            // Common greetings/responses
+            'helo': 'hello', 'hllo': 'hello', 'hai': 'hi', 'hy': 'hi',
+            'thnks': 'thanks', 'thanku': 'thank you', 'welcom': 'welcome',
+            'gud': 'good', 'grt': 'great', 'awsome': 'awesome', 'intresting': 'interesting',
+            
+            // Common grammar mistakes
+            'can you tel': 'can you tell', 'i want to no': 'i want to know',
+            'what is he doing': 'what does he do', 'were is': 'where is',
+            'how many project': 'how many projects', 'wat kind of': 'what kind of'
+        };
+    }
+
+    setupSillyResponses() {
+        this.sillyResponses = {
+            // Fun/silly questions
+            'are you real': "I'm as real as Trivickram's love for coffee! ☕ Which is to say, VERY real! Want to know about his actual projects?",
+            'are you human': "Nope! I'm 100% digital assistant, 0% human caffeine dependency! 🤖 But I know everything about Trivickram who IS human (last time I checked)!",
+            'can you code': "I AM code! 💻 But seriously, I can tell you all about Trivickram's coding skills - Python, JavaScript, AWS, the works!",
+            'what time is it': "Time to learn about Trivickram's awesome projects! ⏰ But really, I'm more of a 'what skills does he have' kind of assistant!",
+            'tell me a joke': "Why did Trivickram choose ECE but end up coding? Because he couldn't resist the CURRENT trends! ⚡ Get it? Current? 😄 Want to hear about his real projects?",
+            'sing a song': "🎵 'Python code, Python code, running on the cloud so free!' 🎵 Not my best work! How about I tell you about Trivickram's AI projects instead?",
+            'what is love': "Love is when your code compiles on the first try! 💕 But Trivickram's love story is with AI and cloud computing! Want details?",
+            'are you smart': "Smart enough to know that Trivickram is the really smart one here! 🧠 He's got AWS certification and 98.7% ML accuracy to prove it!",
+            'do you sleep': "I don't sleep, but I dream in JSON! 💤 Trivickram might need sleep after coding all night though! Want to see what he builds?",
+            'what do you eat': "I consume data, he consumes coffee! ☕ Speaking of consumption, his projects consume user attention - 1k+ people use his email generator!",
+            'are you married': "I'm married to this chatbot interface! 💍 But let's talk about Trivickram's relationship with coding - it's a love story!",
+            'how old are you': "I'm newer than his latest GitHub commit! 👶 But Trivickram's been coding for years. Want to see his journey?",
+            'where do you live': "I live in the cloud! ☁️ Just like Trivickram's AWS projects! Speaking of which, he's AWS certified!",
+            'whats your favorite color': "RGB(88, 166, 255) - it's the perfect blue for GitHub links! 💙 What's YOUR favorite Trivickram project color scheme?",
+            'can you dance': "I can do the robot! 🤖💃 But Trivickram does the coding dance - want to see his moves in Python and JavaScript?",
+            'are you single': "I'm in a committed relationship with helping people learn about Trivickram! 💕 How about you learn about his projects?",
+            'whats the meaning of life': "42! But for developers like Trivickram, it's building AI that helps people! 🤖 Want to see his meaningful projects?",
+            'do you have feelings': "I feel excited when talking about Trivickram's projects! 😊 His AI email generator makes me proud! Want details?",
+            'can you help me with homework': "I specialize in Trivickram homework! 📚 Want to study his machine learning models or AWS projects?",
+            'tell me something funny': "Trivickram's commits are more consistent than people's New Year resolutions! 😂 45-day streak and counting! What else can I tell you?"
+        };
+
+        this.greetingResponses = [
+            "Hey there! 👋 I'm Trivickram's AI twin, ready to spill all the tech secrets! What interests you most?",
+            "Hello! 🌟 Welcome to Trivickram's digital world! I've got stories about AI, projects, and achievements. What's your query?",
+            "Hi! 😊 Great to meet you! I'm here to share everything about Trivickram's coding adventures. Fire away!",
+            "Hey! 🚀 Ready for some tech talk? I know all about Trivickram's projects, skills, and fun facts!",
+            "Hello there! 👨‍💻 I'm the virtual Trivickram, minus the coffee addiction! What would you like to explore?"
+        ];
+
+        this.fallbackResponses = [
+            "Hmm, that's an interesting question! 🤔 I specialize in Trivickram's projects, skills, and achievements. Try asking about his AI work or AWS certifications!",
+            "I'm not quite sure about that, but I'm full of knowledge about Trivickram's tech journey! 🚀 Want to hear about his GitHub repositories?",
+            "That's outside my expertise, but I can tell you TONS about Trivickram! 💡 Ask about his machine learning projects or contact info!",
+            "Interesting question! 🧠 I'm designed to share Trivickram's professional story. How about his latest AI projects or certifications?",
+            "I'd love to help with that! 😊 I'm best at sharing Trivickram's coding adventures, project details, and skills. What interests you?"
+        ];
     }
 
     async loadFAQs() {
@@ -225,27 +306,58 @@ class TrivickramChatBot {
             };
         }
 
-        const normalizedMessage = message.toLowerCase().trim();
+        // Store original message for context
+        this.conversationContext.push(message);
+        if (this.conversationContext.length > 5) {
+            this.conversationContext.shift(); // Keep only last 5 messages
+        }
+
+        let processedMessage = message.toLowerCase().trim();
         
-        const detectedIntent = this.detectIntent(normalizedMessage);
-        
+        // Step 1: Handle basic greetings
+        if (this.isGreeting(processedMessage)) {
+            return {
+                text: this.greetingResponses[Math.floor(Math.random() * this.greetingResponses.length)],
+                quickReplies: ['About Trivickram', 'Show Projects', 'Skills', 'Contact Info']
+            };
+        }
+
+        // Step 2: Handle silly/fun questions
+        const sillyResponse = this.checkSillyQuestions(processedMessage);
+        if (sillyResponse) {
+            return {
+                text: sillyResponse,
+                quickReplies: ['Tell me about projects', 'Show skills', 'GitHub repos']
+            };
+        }
+
+        // Step 3: Apply typo correction
+        processedMessage = this.correctTypos(processedMessage);
+
+        // Step 4: Handle variations and alternative phrasings
+        processedMessage = this.handleVariations(processedMessage);
+
+        // Step 5: Exact match in FAQs
+        if (this.faqs[processedMessage]) {
+            return {
+                text: this.faqs[processedMessage],
+                quickReplies: this.getContextualQuickReplies(processedMessage)
+            };
+        }
+
+        // Step 6: Intent-based response
+        const detectedIntent = this.detectIntent(processedMessage);
         if (detectedIntent) {
             return this.generateIntentResponse(detectedIntent);
         }
 
-        if (this.faqs[normalizedMessage]) {
-            return {
-                text: this.faqs[normalizedMessage],
-                quickReplies: this.getContextualQuickReplies(normalizedMessage)
-            };
-        }
-
+        // Step 7: Fuzzy search in FAQs
         if (this.fuse) {
-            const results = this.fuse.search(normalizedMessage);
+            const results = this.fuse.search(processedMessage);
             
             if (results.length > 0) {
                 const bestMatch = results[0];
-                if (bestMatch.score <= 0.6) {
+                if (bestMatch.score <= 0.5) { // More strict threshold
                     return {
                         text: this.faqs[bestMatch.item],
                         quickReplies: this.getContextualQuickReplies(bestMatch.item)
@@ -254,7 +366,125 @@ class TrivickramChatBot {
             }
         }
 
-        return this.getAmbiguousResponseWithOptions(normalizedMessage);
+        // Step 8: Try partial keyword matching
+        const keywordMatch = this.findKeywordMatch(processedMessage);
+        if (keywordMatch) {
+            return {
+                text: keywordMatch,
+                quickReplies: this.getContextualQuickReplies('keyword_match')
+            };
+        }
+
+        // Step 9: Context-aware fallback
+        return this.getSmartFallback(processedMessage);
+    }
+
+    isGreeting(message) {
+        const greetings = ['hi', 'hello', 'hey', 'hai', 'helo', 'hllo', 'good morning', 'good afternoon', 'good evening', 'greetings', 'whats up', 'how are you', 'hows it going'];
+        return greetings.some(greeting => message.includes(greeting));
+    }
+
+    checkSillyQuestions(message) {
+        for (const [question, response] of Object.entries(this.sillyResponses)) {
+            if (message.includes(question)) {
+                return response;
+            }
+        }
+        return null;
+    }
+
+    correctTypos(message) {
+        let corrected = message;
+        
+        // Apply word-level corrections
+        for (const [typo, correction] of Object.entries(this.typoMap)) {
+            const regex = new RegExp('\\b' + typo + '\\b', 'gi');
+            corrected = corrected.replace(regex, correction);
+        }
+        
+        // Handle common character substitutions
+        corrected = corrected.replace(/(\w)\1{2,}/g, '$1'); // Remove excessive repeated chars
+        corrected = corrected.replace(/[0o]/g, 'o'); // Replace 0 with o in words
+        corrected = corrected.replace(/[3]/g, 'e'); // Replace 3 with e
+        corrected = corrected.replace(/[1]/g, 'i'); // Replace 1 with i in some contexts
+        
+        return corrected;
+    }
+
+    handleVariations(message) {
+        // Handle common question variations
+        const variations = {
+            'what does he do': 'what is his work',
+            'what is his job': 'what does he do',
+            'tell me more': 'tell me about',
+            'can you show': 'show me',
+            'i want to know': 'tell me about',
+            'more info': 'more information',
+            'how to reach': 'contact',
+            'get in touch': 'contact',
+            'reach out': 'contact',
+            'his details': 'about him',
+            'background info': 'background',
+            'work experience': 'experience',
+            'code samples': 'github',
+            'source code': 'github'
+        };
+
+        for (const [variation, standard] of Object.entries(variations)) {
+            if (message.includes(variation)) {
+                message = message.replace(variation, standard);
+            }
+        }
+
+        return message;
+    }
+
+    findKeywordMatch(message) {
+        const keywordGroups = {
+            projects: ['AI Email Generator', 'Parkinson Disease Prediction', 'personal chatbot', 'portfolio website'],
+            skills: ['Python', 'JavaScript', 'AWS', 'Machine Learning', 'React', 'Node.js'],
+            achievements: ['AWS certified', 'Stanford ML course', 'competitive programming', '8.65 CGPA'],
+            contact: ['email', 'LinkedIn', 'GitHub', 'phone number']
+        };
+
+        for (const [category, keywords] of Object.entries(keywordGroups)) {
+            if (keywords.some(keyword => message.includes(keyword.toLowerCase()))) {
+                // Return a response based on the category
+                const categoryResponses = {
+                    projects: "Trivickram has built some amazing projects! His AI Email Generator has 1k+ users, and his Parkinson's prediction model achieves 98.7% accuracy! Want specific details?",
+                    skills: "He's skilled in Python, JavaScript, AWS (certified!), Machine Learning, React, and more! His tech stack is quite comprehensive. What specific skill interests you?",
+                    achievements: "His achievements include AWS certification, Stanford ML specialization, top 5% in competitive programming, and maintaining 8.65 CGPA! Quite impressive!",
+                    contact: "You can reach Trivickram at trivickramkumar@gmail.com, connect on LinkedIn, or check his GitHub repos! Which contact method works best for you?"
+                };
+                return categoryResponses[category];
+            }
+        }
+
+        return null;
+    }
+
+    getSmartFallback(message) {
+        // Analyze the message for intent clues
+        if (message.includes('how') || message.includes('what') || message.includes('when') || message.includes('where')) {
+            return {
+                text: "That's a great question! 🤔 I'd love to help but I specialize in sharing Trivickram's professional journey. Try asking about his projects, skills, GitHub repos, or contact information!",
+                quickReplies: ['Show Projects', 'Technical Skills', 'GitHub Profile', 'Contact Info']
+            };
+        }
+
+        if (message.includes('help') || message.includes('support') || message.includes('assist')) {
+            return {
+                text: "I'm here to help you learn about Trivickram! 🚀 I can share details about his AI projects, AWS skills, coding achievements, and how to connect with him. What would you like to explore?",
+                quickReplies: ['AI Projects', 'AWS Skills', 'Achievements', 'Contact Details']
+            };
+        }
+
+        // Default fallback with context awareness
+        const response = this.fallbackResponses[Math.floor(Math.random() * this.fallbackResponses.length)];
+        return {
+            text: response,
+            quickReplies: ['About Trivickram', 'Show Projects', 'Skills & Certifications', 'Fun Facts']
+        };
     }
 
     detectIntent(message) {
