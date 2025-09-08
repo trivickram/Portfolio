@@ -1496,7 +1496,7 @@ section {
   overflow-wrap: anywhere;
   box-sizing: border-box;
 }
-}
+
 
 .message-bubble:hover {
   border-color: rgba(88, 166, 255, 0.3);
