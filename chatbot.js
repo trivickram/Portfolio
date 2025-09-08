@@ -316,6 +316,14 @@ class TrivickramChatBot {
         let lastBotReply = this.lastResponse;
         let replyObj = null;
 
+        // NEW: Short-circuit explicit asks to prevent generic replies
+        if (/(github|repo|repositories|repo links|github links|project links)/.test(processedMessage)) {
+            return this.generateIntentResponse('github');
+        }
+        if (/(project|projects|show projects|see projects|project list)/.test(processedMessage)) {
+            return this.generateIntentResponse('projects');
+        }
+
         // Step 1: Direct FAQ match (after typo/variation correction)
         processedMessage = this.correctTypos(processedMessage);
         processedMessage = this.handleVariations(processedMessage);
@@ -515,12 +523,48 @@ class TrivickramChatBot {
     }
 
     detectIntent(message) {
+        const msg = message.toLowerCase();
+
+        // High-priority overrides: if a specific domain is mentioned, return that first
+        if (/(project|projects|repo|repos|repository|repositories|portfolio projects)/.test(msg)) {
+            return 'projects';
+        }
+        if (/(github|gh|git hub|repo links|links|project links)/.test(msg)) {
+            return 'github';
+        }
+        if (/(contact|email|linkedin|phone|reach|connect|get in touch)/.test(msg)) {
+            return 'contact';
+        }
+        if (/(skill|skills|technical|tech stack|technology|languages|frameworks)/.test(msg)) {
+            return 'skills';
+        }
+        if (/(certificate|certification|certified|aws|stanford)/.test(msg)) {
+            return 'certifications';
+        }
+
+        // Scoring-based fallback across all intents
+        const scores = {};
         for (const [intentName, intentData] of Object.entries(this.intents)) {
-            if (intentData.keywords.some(keyword => message.includes(keyword))) {
-                return intentName;
+            const { keywords = [] } = intentData;
+            scores[intentName] = keywords.reduce((acc, kw) => acc + (msg.includes(kw) ? 1 : 0), 0);
+        }
+
+        // Pick the highest score above 0 with a tie-breaker priority
+        const priority = ['projects', 'skills', 'contact', 'certifications', 'github', 'about', 'achievements'];
+        let best = null;
+        let bestScore = 0;
+        for (const intent of Object.keys(scores)) {
+            const score = scores[intent];
+            if (score > bestScore) {
+                best = intent; bestScore = score;
+            } else if (score === bestScore && score > 0) {
+                // tie-breaker by priority index (lower index wins)
+                if (priority.indexOf(intent) < priority.indexOf(best)) {
+                    best = intent;
+                }
             }
         }
-        return null;
+        return bestScore > 0 ? best : null;
     }
 
     generateIntentResponse(intent) {
