@@ -1491,6 +1491,11 @@ section {
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  max-width: 95%;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  box-sizing: border-box;
+}
 }
 
 .message-bubble:hover {

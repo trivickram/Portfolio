@@ -313,52 +313,34 @@ class TrivickramChatBot {
         }
 
         let processedMessage = message.toLowerCase().trim();
-        
-        // Step 1: Handle basic greetings
-        if (this.isGreeting(processedMessage)) {
-            return {
-                text: this.greetingResponses[Math.floor(Math.random() * this.greetingResponses.length)],
-                quickReplies: ['About Trivickram', 'Show Projects', 'Skills', 'Contact Info']
-            };
-        }
+        let lastBotReply = this.lastResponse;
+        let replyObj = null;
 
-        // Step 2: Handle silly/fun questions
-        const sillyResponse = this.checkSillyQuestions(processedMessage);
-        if (sillyResponse) {
-            return {
-                text: sillyResponse,
-                quickReplies: ['Tell me about projects', 'Show skills', 'GitHub repos']
-            };
-        }
-
-        // Step 3: Apply typo correction
+        // Step 1: Direct FAQ match (after typo/variation correction)
         processedMessage = this.correctTypos(processedMessage);
-
-        // Step 4: Handle variations and alternative phrasings
         processedMessage = this.handleVariations(processedMessage);
-
-        // Step 5: Exact match in FAQs
         if (this.faqs[processedMessage]) {
-            return {
+            replyObj = {
                 text: this.faqs[processedMessage],
                 quickReplies: this.getContextualQuickReplies(processedMessage)
             };
         }
 
-        // Step 6: Intent-based response
-        const detectedIntent = this.detectIntent(processedMessage);
-        if (detectedIntent) {
-            return this.generateIntentResponse(detectedIntent);
+        // Step 2: Intent-based response
+        if (!replyObj) {
+            const detectedIntent = this.detectIntent(processedMessage);
+            if (detectedIntent) {
+                replyObj = this.generateIntentResponse(detectedIntent);
+            }
         }
 
-        // Step 7: Fuzzy search in FAQs
-        if (this.fuse) {
+        // Step 3: Fuzzy search in FAQs
+        if (!replyObj && this.fuse) {
             const results = this.fuse.search(processedMessage);
-            
             if (results.length > 0) {
                 const bestMatch = results[0];
-                if (bestMatch.score <= 0.5) { // More strict threshold
-                    return {
+                if (bestMatch.score <= 0.45) { // Stricter threshold
+                    replyObj = {
                         text: this.faqs[bestMatch.item],
                         quickReplies: this.getContextualQuickReplies(bestMatch.item)
                     };
@@ -366,17 +348,62 @@ class TrivickramChatBot {
             }
         }
 
-        // Step 8: Try partial keyword matching
-        const keywordMatch = this.findKeywordMatch(processedMessage);
-        if (keywordMatch) {
-            return {
-                text: keywordMatch,
-                quickReplies: this.getContextualQuickReplies('keyword_match')
-            };
+        // Step 4: Silly/fun questions
+        if (!replyObj) {
+            const sillyResponse = this.checkSillyQuestions(processedMessage);
+            if (sillyResponse) {
+                replyObj = {
+                    text: sillyResponse,
+                    quickReplies: ['Tell me about projects', 'Show skills', 'GitHub repos']
+                };
+            }
         }
 
-        // Step 9: Context-aware fallback
-        return this.getSmartFallback(processedMessage);
+        // Step 5: Keyword match
+        if (!replyObj) {
+            const keywordMatch = this.findKeywordMatch(processedMessage);
+            if (keywordMatch) {
+                replyObj = {
+                    text: keywordMatch,
+                    quickReplies: this.getContextualQuickReplies('keyword_match')
+                };
+            }
+        }
+
+        // Step 6: Greeting only if no info intent detected
+        if (!replyObj && this.isGreeting(processedMessage)) {
+            // Only greet if user isn't asking for info
+            if (!['project','skill','contact','certification','github','work','about'].some(k=>processedMessage.includes(k))) {
+                replyObj = {
+                    text: this.greetingResponses[Math.floor(Math.random() * this.greetingResponses.length)],
+                    quickReplies: ['About Trivickram', 'Show Projects', 'Skills', 'Contact Info']
+                };
+            }
+        }
+
+        // Step 7: Context-aware fallback
+        if (!replyObj) {
+            replyObj = this.getSmartFallback(processedMessage);
+        }
+
+        // Prevent repeating last bot reply
+        if (replyObj && lastBotReply && replyObj.text === lastBotReply) {
+            replyObj.text = "Let me give you more details! " + replyObj.text;
+        }
+        this.lastResponse = replyObj.text;
+
+        // Only show quick replies relevant to the last user message
+        if (replyObj.quickReplies && replyObj.quickReplies.length > 0) {
+            replyObj.quickReplies = replyObj.quickReplies.filter(qr => {
+                return processedMessage.includes(qr.toLowerCase().replace(/[^a-z]/g, '')) || ['about','project','skill','contact','github','fun','certification'].some(k=>qr.toLowerCase().includes(k));
+            });
+            // If none match, show default set
+            if (replyObj.quickReplies.length === 0) {
+                replyObj.quickReplies = ['About Trivickram', 'Show Projects', 'Skills', 'Contact Info'];
+            }
+        }
+
+        return replyObj;
     }
 
     isGreeting(message) {
@@ -496,13 +523,54 @@ class TrivickramChatBot {
         return null;
     }
 
-    generateIntentResponse(intentName) {
-        const intent = this.intents[intentName];
-        const randomTemplate = intent.templates[Math.floor(Math.random() * intent.templates.length)];
-        
+    generateIntentResponse(intent) {
+        // If the intent is github, repositories, or explicit link request, show projects with links
+        if (intent === 'github' || intent === 'repositories' || intent === 'show github' || intent === 'github links' || intent === 'project links' || intent === 'github repositories') {
+            return {
+                text:
+                    `Here are Trivickram's top projects with their GitHub and live links:\n\n` +
+                    `🤖 Personal_chatBot: https://github.com/trivickram/Personal_chatBot\n` +
+                    `📧 Email-Generator: https://github.com/trivickram/Email-Generator\n` +
+                    `🏥 Parkinsons-Disease-prediction: https://github.com/trivickram/Parkinsons-Disease-prediction\n` +
+                    `🚀 AI-powered-Self-Healing-CI-CD-pipelines: https://github.com/trivickram/AI-powered-Self-Healing-CI-CD-pipelines\n` +
+                    `🌐 Portfolio: https://github.com/trivickram/Portfolio\n` +
+                    `\nLive Demos:\n` +
+                    `• Portfolio Website: https://trivickram.me\n` +
+                    `• VIT BFHL API: https://vit-bfhl-api-kohl.vercel.app\n` +
+                    `• Email Generator: (Production app with 1k+ users)\n` +
+                    `\nExplore all: https://github.com/trivickram`,
+                quickReplies: ['Show Projects', 'GitHub Profile', 'Live Demos', 'Contact Info']
+            };
+        }
+        // If the intent is projects or similar, show only project names
+        if (intent === 'projects' || intent === 'show projects' || intent === 'see projects' || intent === 'project list') {
+            return {
+                text:
+                    `Here are some of Trivickram's most popular projects:\n\n` +
+                    `🤖 Personal_chatBot\n` +
+                    `📧 Email-Generator\n` +
+                    `🏥 Parkinsons-Disease-prediction\n` +
+                    `🚀 AI-powered-Self-Healing-CI-CD-pipelines\n` +
+                    `🌐 Portfolio\n` +
+                    `SnackOverflow\n` +
+                    `DevNestle\n` +
+                    `Parkinsons Predictor\n` +
+                    `AI Cold Email Generator`,
+                quickReplies: ['GitHub Links', 'Live Demos', 'Contact Info', 'Technical Skills']
+            };
+        }
+        // fallback to original logic for other intents
+        const data = this.intents[intent];
+        if (data) {
+            const template = data.templates[Math.floor(Math.random() * data.templates.length)];
+            return {
+                text: template,
+                quickReplies: data.quickReplies || []
+            };
+        }
         return {
-            text: randomTemplate,
-            quickReplies: intent.quickReplies || []
+            text: "I'm not sure about that, but I can tell you about Trivickram's projects, skills, or contact info!",
+            quickReplies: ['Show Projects', 'Skills', 'Contact Info']
         };
     }
 
